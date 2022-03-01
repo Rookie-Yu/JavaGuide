@@ -7,6 +7,10 @@ tag:
 
 ## 基础概念与常识
 
+### 何为编程?
+
+编程就是让计算机为解决某个问题而使用某种程序设计语言编写程序代码，并 终得到结果的过程。为了使计算机能够理解人的意图，人类就必须要将需解决的问题的思路、方法、 和手段通过计算机能够理解的形式告诉计算机，使得计算机能够根据人的指令一 步一步去工作，完成某种特定的任务。这种人和计算机之间交流的过程就是编程。
+
 ### Java 语言有哪些特点?
 
 1. 简单易学；
@@ -43,6 +47,13 @@ JDK 是 Java Development Kit 缩写，它是功能齐全的 Java SDK。它拥有
 JRE 是 Java 运行时环境。它是运行已编译 Java 程序所需的所有内容的集合，包括 Java 虚拟机（JVM），Java 类库，java 命令和其他的一些基础构件。但是，它不能用于创建新程序。
 
 如果你只是为了运行一下 Java 程序的话，那么你只需要安装 JRE 就可以了。如果你需要进行一些 Java 编程方面的工作，那么你就需要安装 JDK 了。但是，这不是绝对的。有时，即使您不打算在计算机上进行任何 Java 开发，仍然需要安装 JDK。例如，如果要使用 JSP 部署 Web 应用程序，那么从技术上讲，您只是在应用程序服务器中运行 Java 程序。那你为什么需要 JDK 呢？因为应用程序服务器会将 JSP 转换为 Java servlet，并且需要使用 JDK 来编译 servlet。
+
+### jdk1.5之后的三大版本
+Java SE（J2SE，Java 2 Platform Standard Edition，标准版） Java SE 以前称为 J2SE。它允许开发和部署在桌面、服务器、嵌入式环境和实时环境中使 用的 Java 应用程序。Java SE 包含了支持 JavaWeb 服务开发的类，并为Java EE和Java ME提供基础。
+
+Java EE（J2EE，Java 2 Platform Enterprise Edition，企业版） Java EE 以前称为 J2EE。企业版本帮助开发和部署可移植、健壮、可伸缩且安全的服务器 端Java 应用程序。Java EE 是在 Java SE 的基础上构建的，它提供 Web 服务、组件模型、 管理和通信 API，可以用来实现企业级的面向服务体系结构（service-oriented architecture，SOA）和 Web2.0应用程序。2018年2月，Eclipse 宣布正式将 JavaEE 更名 为 JakartaEE
+
+Java ME（J2ME，Java 2 Platform Micro Edition，微型版） Java ME 以前称为 J2ME。Java ME 为在移动设备和嵌入式设备（比如手机、PDA、电视 机顶盒和打印机）上运行的应用程序提供一个健壮且灵活的环境。Java ME 包括灵活的用 户界面、健壮的安全模型、许多内置的网络协议以及对可以动态下载的连网和离线应用程序 的丰富支持。基于 Java ME 规范的应用程序只需编写一次，就可以用于许多设备，而且可 以利用每个设备的本机功能。
 
 ### 什么是字节码?采用字节码的好处是什么?
 
@@ -119,6 +130,226 @@ JRE 是 Java 运行时环境。它是运行已编译 Java 程序所需的所有�
 
 ## 基本语法
 
+### 基本数据类型
+
+### Java 中的几种基本数据类型了解么？
+
+Java 中有 8 种基本数据类型，分别为：
+
+1. 6 种数字类型：
+   - 4 种整数型：`byte`、`short`、`int`、`long`
+   - 2 种浮点型：`float`、`double`
+2. 1 种字符类型：`char`
+3. 1 种布尔型：`boolean`。
+
+这 8 种基本数据类型的默认值以及所占空间的大小如下：
+
+| 基本类型  | 位数 | 字节 | 默认值  | 取值范围                                   |
+| :-------- | :--- | :--- | :------ | ------------------------------------------ |
+| `byte`    | 8    | 1    | 0       | -128 ~ 127                                 |
+| `short`   | 16   | 2    | 0       | -32768 ~ 32767                             |
+| `int`     | 32   | 4    | 0       | -2147483648 ~ 2147483647                   |
+| `long`    | 64   | 8    | 0L      | -9223372036854775808 ~ 9223372036854775807 |
+| `char`    | 16   | 2    | 'u0000' | 0 ~ 65535                                  |
+| `float`   | 32   | 4    | 0f      | 1.4E-45 ~ 3.4028235E38                     |
+| `double`  | 64   | 8    | 0d      | 4.9E-324 ~ 1.7976931348623157E308          |
+| `boolean` | 1    |      | false   | true、false                                |
+
+对于 `boolean`，官方文档未明确定义，它依赖于 JVM 厂商的具体实现。逻辑上理解是占用 1 位，但是实际中会考虑计算机高效存储因素。
+
+另外，Java 的每种基本类型所占存储空间的大小不会像其他大多数语言那样随机器硬件架构的变化而变化。这种所占存储空间大小的不变性是 Java 程序比用其他大多数语言编写的程序更具可移植性的原因之一（《Java 编程思想》2.2 节有提到）。
+
+**注意：**
+
+1. Java 里使用 `long` 类型的数据一定要在数值后面加上 **L**，否则将作为整型解析。
+2. `char a = 'h'`char :单引号，`String a = "hello"` :双引号。
+
+这八种基本类型都有对应的包装类分别为：`Byte`、`Short`、`Integer`、`Long`、`Float`、`Double`、`Character`、`Boolean` 。
+
+包装类型不赋值就是 `Null` ，而基本类型有默认值且不是 `Null`。
+
+另外，这个问题建议还可以先从 JVM 层面来分析。
+
+基本数据类型直接存放在 Java 虚拟机栈中的局部变量表中，而包装类型属于对象类型，我们知道对象实例都存在于堆中。相比于对象类型， 基本数据类型占用的空间非常小。
+
+> 《深入理解 Java 虚拟机》 ：局部变量表主要存放了编译期可知的基本数据类型 **（boolean、byte、char、short、int、float、long、double）**、**对象引用**（reference 类型，它不同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置）。
+
+### 包装类型的常量池技术了解么？
+
+Java 基本类型的包装类的大部分都实现了常量池技术。
+
+`Byte`,`Short`,`Integer`,`Long` 这 4 种包装类默认创建了数值 **[-128，127]** 的相应类型的缓存数据，`Character` 创建了数值在 **[0,127]** 范围的缓存数据，`Boolean` 直接返回 `True` or `False`。
+
+**Integer 缓存源码：**
+
+```java
+public static Integer valueOf(int i) {
+    if (i >= IntegerCache.low && i <= IntegerCache.high)
+        return IntegerCache.cache[i + (-IntegerCache.low)];
+    return new Integer(i);
+}
+private static class IntegerCache {
+    static final int low = -128;
+    static final int high;
+    static {
+        // high value may be configured by property
+        int h = 127;
+    }
+}
+```
+
+**`Character` 缓存源码:**
+
+```java
+public static Character valueOf(char c) {
+    if (c <= 127) { // must cache
+      return CharacterCache.cache[(int)c];
+    }
+    return new Character(c);
+}
+
+private static class CharacterCache {
+    private CharacterCache(){}
+    static final Character cache[] = new Character[127 + 1];
+    static {
+        for (int i = 0; i < cache.length; i++)
+            cache[i] = new Character((char)i);
+    }
+
+}
+```
+
+**`Boolean` 缓存源码：**
+
+```java
+public static Boolean valueOf(boolean b) {
+    return (b ? TRUE : FALSE);
+}
+```
+
+如果超出对应范围仍然会去创建新的对象，缓存的范围区间的大小只是在性能和资源之间的权衡。
+
+两种浮点数类型的包装类 `Float`,`Double` 并没有实现常量池技术。
+
+```java
+Integer i1 = 33;
+Integer i2 = 33;
+System.out.println(i1 == i2);// 输出 true
+
+Float i11 = 333f;
+Float i22 = 333f;
+System.out.println(i11 == i22);// 输出 false
+
+Double i3 = 1.2;
+Double i4 = 1.2;
+System.out.println(i3 == i4);// 输出 false
+```
+
+下面我们来看一下问题。下面的代码的输出结果是 `true` 还是 `false` 呢？
+
+```java
+Integer i1 = 40;
+Integer i2 = new Integer(40);
+System.out.println(i1==i2);
+```
+
+`Integer i1=40` 这一行代码会发生装箱，也就是说这行代码等价于 `Integer i1=Integer.valueOf(40)` 。因此，`i1` 直接使用的是常量池中的对象。而`Integer i2 = new Integer(40)` 会直接创建新的对象。
+
+因此，答案是 `false` 。你答对了吗？
+
+记住：**所有整型包装类对象之间值的比较，全部使用 equals 方法比较**。
+
+![](https://img-blog.csdnimg.cn/20210422164544846.png)
+
+### 自动装箱与拆箱了解吗？原理是什么？
+
+**什么是自动拆装箱？**
+
+- **装箱**：将基本类型用它们对应的引用类型包装起来；
+- **拆箱**：将包装类型转换为基本数据类型；
+
+举例：
+
+```java
+Integer i = 10;  //装箱
+int n = i;   //拆箱
+```
+
+上面这两行代码对应的字节码为：
+
+```java
+   L1
+
+    LINENUMBER 8 L1
+
+    ALOAD 0
+
+    BIPUSH 10
+
+    INVOKESTATIC java/lang/Integer.valueOf (I)Ljava/lang/Integer;
+
+    PUTFIELD AutoBoxTest.i : Ljava/lang/Integer;
+
+   L2
+
+    LINENUMBER 9 L2
+
+    ALOAD 0
+
+    ALOAD 0
+
+    GETFIELD AutoBoxTest.i : Ljava/lang/Integer;
+
+    INVOKEVIRTUAL java/lang/Integer.intValue ()I
+
+    PUTFIELD AutoBoxTest.n : I
+
+    RETURN
+```
+
+从字节码中，我们发现装箱其实就是调用了 包装类的`valueOf()`方法，拆箱其实就是调用了 `xxxValue()`方法。
+
+因此，
+
+- `Integer i = 10` 等价于 `Integer i = Integer.valueOf(10)`
+- `int n = i` 等价于 `int n = i.intValue()`;
+
+注意：**如果频繁拆装箱的话，也会严重影响系统的性能。我们应该尽量避免不必要的拆装箱操作。**
+
+```java
+private static long sum() {
+    // 应该使用 long 而不是 Long
+    Long sum = 0L;
+    for (long i = 0; i <= Integer.MAX_VALUE; i++)
+        sum += i;
+    return sum;
+}
+```
+
+## 参考
+
+- https://stackoverflow.com/questions/1906445/what-is-the-difference-between-jdk-and-jre
+- https://www.educba.com/oracle-vs-openjdk/
+- https://stackoverflow.com/questions/22358071/differences-between-oracle-jdk-and-openjdk
+
+
+### 有关数据的小问题
+switch不能作用于long上面
+
+最有效率的运算——位运算
+* &	与	两个位都为1时，结果才为1
+* |	或	两个位都为0时，结果才为0
+* ^	异或	两个位相同为0，相异为1
+* ~	取反	0变1，1变0
+* \<<  左移	各二进位全部左移若干位，高位丢弃，低位补0
+* \>>	右移	各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不一样，有的补符号位（算术右移），有的补0（逻辑右移）
+
+Math.round()四舍五入原理是在参数上加0.5然后向下取整。
+
+### Java语言采用何种编码方案？有何特点？
+Java语言采用Unicode编码标准，Unicode（标准码），它为每个字符制订了一 个唯一的数值，因此在任何的语言，平台，程序都可以放心的使用。
+
+
 ### 字符型常量和字符串常量的区别?
 
 1. **形式** : 字符常量是单引号引起的一个字符，字符串常量是双引号引起的 0 个或若干个字符。
@@ -160,6 +391,19 @@ Java 中的注释有三种：
 > if (employee.isEligibleForFullBenefits())
 > ```
 
+### 访问修饰符 public,private,protected,以及不写（默认）时的 区别
+定义：Java中，可以使用访问修饰符来保护对类、变量、方法和构造方法的访 问。Java 支持 4 种不同的访问权限。
+
+分类：
+
+private : 在同一类内可见。使用对象：变量、方法。 注意：不能修饰类（外部 类）
+
+default: (即缺省，什么也不写，不使用任何关键字）: 在同一包内可见，不使用 任何修饰符。使用对象：类、接口、变量、方法。
+
+protected : 对同一包内的类和所有子类可见。使用对象：变量、方法。 注意： 不能修饰类（外部类）。
+
+public : 对所有类可见。使用对象：类、接口、变量、方法。
+
 ### 标识符和关键字的区别是什么？
 
 在我们编写程序的时候，需要大量地为程序、类、变量、方法等取名字，于是就有了 **标识符** 。简单来说， **标识符就是一个名字** 。
@@ -194,13 +438,40 @@ Java 中的注释有三种：
 
 官方文档：[https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html)
 
+
+### static存在的主要意义
+static的主要意义是在于创建独立于具体对象的域变量或者方法。以致于即使没有创建对象，也能使用属性和调用方法！
+
+static关键字还有一个比较关键的作用就是 用来形成静态代码块以优化程序性能。static块可以置于类中的任何地方，类中可以有多个static块。在类初次被加载的时候，会按照static块的顺序来执行每个static块，并且只会执行一次。为什么说static块可以用来优化程序性能，是因为它的特性:只会在类加载的时候执行一次。因此，很多时候会将一些只需要进行一次的初始化操作都放在static代码块中进行。
+#### static的独特之处
+1.被static修饰的变量或者方法是独立于该类的任何对象，也就是说，这些变量和方法不属于任何一个实例对象，而是被类的实例对象所共享。
+>怎么理解 “被类的实例对象所共享” 这句话呢？就是说，一个类的静态成员，它是属于大伙的【大伙指的是这个类的多个对象实例，我们都知道一个类可以创建多个实例！】，所有的类对象共享的，不像成员变量是自个的【自个指的是这个类的单个实例对象】…我觉得我已经讲的很通俗了，你明白了咩？
+2.在该类被第一次加载的时候，就会去加载被static修饰的部分，而且只在类第一次使用时加载并进行
+初始化，注意这是第一次用就要初始化，后面根据需要是可以再次赋值的。
+3.static变量值在类加载的时候分配空间，以后创建类对象的时候不会重新分配。赋值的话，是可以任
+意赋值的！
+4.被static修饰的变量或者方法是优先于对象存在的，也就是说当一个类加载完毕之后，即便没有创建
+对象，也可以去访问。
+#### static应用场景
+因为static是被类的实例对象所共享，因此如果某个成员变量是被所有对象所共享的，那么这个成员变量就应该定义为静态变量。
+
+因此比较常见的static应用场景有：
+1.修饰成员变量
+2.修饰成员方法
+3.静态代码块
+4.修饰类【只能修饰内部类也就是静态内部类】
+5.静态导包
+
+#### static注意事项
+1、静态只能访问静态。 2、非静态既可以访问非静态的，也可以访问静态的。
+
 ### 自增自减运算符
 
 在写代码的过程中，常见的一种情况是需要某个整数类型变量增加 1 或减少 1，Java 提供了一种特殊的运算符，用于这种表达式，叫做自增运算符（++)和自减运算符（--）。
 
 ++ 和 -- 运算符可以放在变量之前，也可以放在变量之后，当运算符放在变量之前时(前缀)，先自增/减，再赋值；当运算符放在变量之后时(后缀)，先赋值，再自增/减。例如，当 `b = ++a` 时，先自增（自己增加 1），再赋值（赋值给 b）；当 `b = a++` 时，先赋值(赋值给 b)，再自增（自己增加 1）。也就是，++a 输出的是 a+1 的值，a++输出的是 a 值。用一句口诀就是：“符号在前就先加/减，符号在后就后加/减”。
 
-### continue、break 和 return 的区别是什么？
+### 流程控制语句continue、break 和 return 的区别是什么？
 
 在循环结构中，当循环条件不满足或者循环次数达到要求时，循环会正常结束。但是，有时候可能需要在循环的过程中，当发生了某种条件之后 ，提前终止循环，这就需要用到下面几个关键词：
 
@@ -217,6 +488,7 @@ Java 中的注释有三种：
 ```java
     public static void main(String[] args) {
         boolean flag = false;
+        ok: //（break ok;即可跳入当前位置）
         for (int i = 0; i <= 3; i++) {
             if (i == 0) {
                 System.out.println("0");
@@ -634,204 +906,3 @@ public class VariableLengthArgument {
 }
 ```
 
-## 基本数据类型
-
-### Java 中的几种基本数据类型了解么？
-
-Java 中有 8 种基本数据类型，分别为：
-
-1. 6 种数字类型：
-   - 4 种整数型：`byte`、`short`、`int`、`long`
-   - 2 种浮点型：`float`、`double`
-2. 1 种字符类型：`char`
-3. 1 种布尔型：`boolean`。
-
-这 8 种基本数据类型的默认值以及所占空间的大小如下：
-
-| 基本类型  | 位数 | 字节 | 默认值  | 取值范围                                   |
-| :-------- | :--- | :--- | :------ | ------------------------------------------ |
-| `byte`    | 8    | 1    | 0       | -128 ~ 127                                 |
-| `short`   | 16   | 2    | 0       | -32768 ~ 32767                             |
-| `int`     | 32   | 4    | 0       | -2147483648 ~ 2147483647                   |
-| `long`    | 64   | 8    | 0L      | -9223372036854775808 ~ 9223372036854775807 |
-| `char`    | 16   | 2    | 'u0000' | 0 ~ 65535                                  |
-| `float`   | 32   | 4    | 0f      | 1.4E-45 ~ 3.4028235E38                     |
-| `double`  | 64   | 8    | 0d      | 4.9E-324 ~ 1.7976931348623157E308          |
-| `boolean` | 1    |      | false   | true、false                                |
-
-对于 `boolean`，官方文档未明确定义，它依赖于 JVM 厂商的具体实现。逻辑上理解是占用 1 位，但是实际中会考虑计算机高效存储因素。
-
-另外，Java 的每种基本类型所占存储空间的大小不会像其他大多数语言那样随机器硬件架构的变化而变化。这种所占存储空间大小的不变性是 Java 程序比用其他大多数语言编写的程序更具可移植性的原因之一（《Java 编程思想》2.2 节有提到）。
-
-**注意：**
-
-1. Java 里使用 `long` 类型的数据一定要在数值后面加上 **L**，否则将作为整型解析。
-2. `char a = 'h'`char :单引号，`String a = "hello"` :双引号。
-
-这八种基本类型都有对应的包装类分别为：`Byte`、`Short`、`Integer`、`Long`、`Float`、`Double`、`Character`、`Boolean` 。
-
-包装类型不赋值就是 `Null` ，而基本类型有默认值且不是 `Null`。
-
-另外，这个问题建议还可以先从 JVM 层面来分析。
-
-基本数据类型直接存放在 Java 虚拟机栈中的局部变量表中，而包装类型属于对象类型，我们知道对象实例都存在于堆中。相比于对象类型， 基本数据类型占用的空间非常小。
-
-> 《深入理解 Java 虚拟机》 ：局部变量表主要存放了编译期可知的基本数据类型 **（boolean、byte、char、short、int、float、long、double）**、**对象引用**（reference 类型，它不同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置）。
-
-### 包装类型的常量池技术了解么？
-
-Java 基本类型的包装类的大部分都实现了常量池技术。
-
-`Byte`,`Short`,`Integer`,`Long` 这 4 种包装类默认创建了数值 **[-128，127]** 的相应类型的缓存数据，`Character` 创建了数值在 **[0,127]** 范围的缓存数据，`Boolean` 直接返回 `True` or `False`。
-
-**Integer 缓存源码：**
-
-```java
-public static Integer valueOf(int i) {
-    if (i >= IntegerCache.low && i <= IntegerCache.high)
-        return IntegerCache.cache[i + (-IntegerCache.low)];
-    return new Integer(i);
-}
-private static class IntegerCache {
-    static final int low = -128;
-    static final int high;
-    static {
-        // high value may be configured by property
-        int h = 127;
-    }
-}
-```
-
-**`Character` 缓存源码:**
-
-```java
-public static Character valueOf(char c) {
-    if (c <= 127) { // must cache
-      return CharacterCache.cache[(int)c];
-    }
-    return new Character(c);
-}
-
-private static class CharacterCache {
-    private CharacterCache(){}
-    static final Character cache[] = new Character[127 + 1];
-    static {
-        for (int i = 0; i < cache.length; i++)
-            cache[i] = new Character((char)i);
-    }
-
-}
-```
-
-**`Boolean` 缓存源码：**
-
-```java
-public static Boolean valueOf(boolean b) {
-    return (b ? TRUE : FALSE);
-}
-```
-
-如果超出对应范围仍然会去创建新的对象，缓存的范围区间的大小只是在性能和资源之间的权衡。
-
-两种浮点数类型的包装类 `Float`,`Double` 并没有实现常量池技术。
-
-```java
-Integer i1 = 33;
-Integer i2 = 33;
-System.out.println(i1 == i2);// 输出 true
-
-Float i11 = 333f;
-Float i22 = 333f;
-System.out.println(i11 == i22);// 输出 false
-
-Double i3 = 1.2;
-Double i4 = 1.2;
-System.out.println(i3 == i4);// 输出 false
-```
-
-下面我们来看一下问题。下面的代码的输出结果是 `true` 还是 `false` 呢？
-
-```java
-Integer i1 = 40;
-Integer i2 = new Integer(40);
-System.out.println(i1==i2);
-```
-
-`Integer i1=40` 这一行代码会发生装箱，也就是说这行代码等价于 `Integer i1=Integer.valueOf(40)` 。因此，`i1` 直接使用的是常量池中的对象。而`Integer i2 = new Integer(40)` 会直接创建新的对象。
-
-因此，答案是 `false` 。你答对了吗？
-
-记住：**所有整型包装类对象之间值的比较，全部使用 equals 方法比较**。
-
-![](https://img-blog.csdnimg.cn/20210422164544846.png)
-
-### 自动装箱与拆箱了解吗？原理是什么？
-
-**什么是自动拆装箱？**
-
-- **装箱**：将基本类型用它们对应的引用类型包装起来；
-- **拆箱**：将包装类型转换为基本数据类型；
-
-举例：
-
-```java
-Integer i = 10;  //装箱
-int n = i;   //拆箱
-```
-
-上面这两行代码对应的字节码为：
-
-```java
-   L1
-
-    LINENUMBER 8 L1
-
-    ALOAD 0
-
-    BIPUSH 10
-
-    INVOKESTATIC java/lang/Integer.valueOf (I)Ljava/lang/Integer;
-
-    PUTFIELD AutoBoxTest.i : Ljava/lang/Integer;
-
-   L2
-
-    LINENUMBER 9 L2
-
-    ALOAD 0
-
-    ALOAD 0
-
-    GETFIELD AutoBoxTest.i : Ljava/lang/Integer;
-
-    INVOKEVIRTUAL java/lang/Integer.intValue ()I
-
-    PUTFIELD AutoBoxTest.n : I
-
-    RETURN
-```
-
-从字节码中，我们发现装箱其实就是调用了 包装类的`valueOf()`方法，拆箱其实就是调用了 `xxxValue()`方法。
-
-因此，
-
-- `Integer i = 10` 等价于 `Integer i = Integer.valueOf(10)`
-- `int n = i` 等价于 `int n = i.intValue()`;
-
-注意：**如果频繁拆装箱的话，也会严重影响系统的性能。我们应该尽量避免不必要的拆装箱操作。**
-
-```java
-private static long sum() {
-    // 应该使用 long 而不是 Long
-    Long sum = 0L;
-    for (long i = 0; i <= Integer.MAX_VALUE; i++)
-        sum += i;
-    return sum;
-}
-```
-
-## 参考
-
-- https://stackoverflow.com/questions/1906445/what-is-the-difference-between-jdk-and-jre
-- https://www.educba.com/oracle-vs-openjdk/
-- https://stackoverflow.com/questions/22358071/differences-between-oracle-jdk-and-openjdk
