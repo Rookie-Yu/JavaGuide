@@ -13,6 +13,8 @@ tag:
 
 Java 的泛型是伪泛型，这是因为 Java 在运行期间，所有的泛型信息都会被擦掉，这也就是通常所说类型擦除 。
 
+目的是避免过多的创建类而造成的运行时的过度消耗。所以，想 ArrayList<Integer> 和 ArrayList<String> 这两个实例，其类实例是同一个。
+
 ```java
 List<Integer> list = new ArrayList<>();
 
@@ -165,6 +167,72 @@ public class DebugInvocationHandler implements InvocationHandler {
 
 ```
 
+#### 编译时类型和运行时类型
+Person p=new Women()(Women类继承自Person类)那么，假如p的属性修饰符为public 访问属性时得到的是Person类的属性还是Women类的属性，方法调用又是哪个类？
+
+答案：会得到Person类的属性，调用Women类的方法。为什么会这样呢？这里就需要知道什么是编译时类型和运行时类型，Java程序状态会分为编译和运行这两种状态，
+* 编译时，JVM会在栈中静态创建基本数据变量，和引用数据变量的引用，回到刚刚那句代码，显然，p这个引用就是在编译时创建的，那么，p的编译时类型就是Person了，
+* 当运行这句java代码时，JVM在堆中为p新建一块内存，对应new Women（）这句代码，所以p的运行时类型就是Women
+##### 场景
+程序在运行时还可能接收到外部传入的对象，该对象的编译时类型为 Object,但是程序有需要调用该对象的运行时类型的方法。为了解决这些问题，程序需要在运行时发现对象和类的真实信息。然而，如果编译时根本无法预知该对象和类属于哪些类，程序只能依靠运行时信息来发现该对象和类的真实信息，此时就必须使用到反射了。
+
+#### Java反射 API
+反射API用来生成JVM中的类、接口或则对象的信息。
+1. Class 类：反射的核心类，可以获取类的属性，方法等信息。
+2. Field 类：Java.lang.reflec 包中的类，表示类的成员变量，可以用来获取和设置类之中的属性值。
+3. Method 类： Java.lang.reflec 包中的类，表示类的方法，它可以用来获取类中的方法信息或者执
+行方法。
+4. Constructor 类： Java.lang.reflec 包中的类，表示类的构造方法。
+##### 反射使用步骤（获取 Class 对象、调用对象方法）
+1. 获取想要操作的类的 Class 对象，他是反射的核心，通过 Class 对象我们可以任意调用类的方法。
+2. 调用 Class 类中的方法，既就是反射的使用阶段。
+3. 使用反射 API 来操作这些信息。
+##### 获取 Class 对象的 3 种方法
+1.调用某个对象的getClass()方法
+2.Person p=new Person();
+3.Class clazz=p.getClass();
+##### 调用某个类的class属性来获取该类对应的Class对象
+* Class clazz=Person.class;
+* 使用Class类中的forName()静态方法(最安全/性能最好)
+* Class clazz=Class.forName("类的全路径"); (最常用)
+* 当我们获得了想要操作的类的 Class 对象后，可以通过 Class 类中的方法获取并查看该类中的方法和属
+性。 
+```java
+  //获取 Person 类的 Class 对象 
+    Class clazz=Class.forName("reflection.Person"); 
+    //获取 Person 类的所有方法信息 
+    Method[] method=clazz.getDeclaredMethods(); 
+    for(Method m:method){ 
+      System.out.println(m.toString()); 
+    }
+    //获取 Person 类的所有成员属性信息 
+    Field[] field=clazz.getDeclaredFields(); 
+    for(Field f:field){ 
+      System.out.println(f.toString());
+    }
+    //获取 Person 类的所有构造方法信息 
+    Constructor[] constructor=clazz.getDeclaredConstructors(); 
+    for(Constructor c:constructor){ 
+      System.out.println(c.toString()); 
+    }
+```
+创建对象的两种方法
+* Class对象的newInstance()
+    1. 使用 Class 对象的 newInstance()方法来创建该 Class 对象对应类的实例，但是这种方法要求该Class 对象对应的类有默认的空构造器。
+* 调用Constructor 对象的newInstance()
+    2. 先使用 Class 对象获取指定的 Constructor 对象，再调用 Constructor 对象的 newInstance() 方法
+来创建 Class 对象对应类的实例,通过这种方法可以选定构造方法创建实例
+```java
+    //获取 Person 类的 Class 对象 
+    Class clazz=Class.forName("reflection.Person"); 
+    //使用.newInstane 方法创建对象 
+    Person p=(Person) clazz.newInstance(); 
+    //获取构造方法并创建对象 
+    Constructor c=clazz.getDeclaredConstructor(String.class,String.class,int.class); 
+    //创建对象并设置属性 
+    Person p1=(Person) c.newInstance("李四","男",20);
+```    
+
 另外，像 Java 中的一大利器 **注解** 的实现也用到了反射。
 
 为什么你使用 Spring 的时候 ，一个`@Component`注解就声明了一个类为 Spring Bean 呢？为什么你通过一个 `@Value`注解就读取到配置文件中的值呢？究竟是怎么起作用的呢？
@@ -172,6 +240,8 @@ public class DebugInvocationHandler implements InvocationHandler {
 这些都是因为你可以基于反射分析类，然后获取到类/属性/方法/方法的参数上的注解。你获取到注解之后，就可以做进一步的处理。
 
 ## 注解
+
+https://www.cnblogs.com/konglxblog/p/15318054.html
 
 `Annontation` （注解） 是Java5 开始引入的新特性，可以看作是一种特殊的注释，主要用于修饰类、方法或者变量。
 
