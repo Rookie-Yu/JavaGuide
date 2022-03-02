@@ -5,7 +5,7 @@ tag:
   - Java并发
 ---
 
-## 基础了解
+# 基础了解
 1.并行基础概念
 
 * Synchronous Asynchronous
@@ -41,18 +41,18 @@ tag:
 	
 * Ordering 程序执行时 发生指令重排（每个指令都会由不同的硬件完成 所以要流水线）
 	* Happen-Before
-	1.程序顺序规则 保证语义的串行性
-	2.volatile 写先于读
-	3.锁规则
-	4.传递性
-	5.线程的start（）
-	6.线程结束Thread.join()
-	7.线程的中断Interrupt（）
-	8.对象的finalize（）
+		* 程序顺序规则 保证语义的串行性
+		* volatile 写先于读
+		* 锁规则
+		* 传递性
+		* 线程的start（）
+		* 线程结束Thread.join()
+		* 线程的中断Interrupt（）
+		* 对象的finalize（）
  ![image](https://user-images.githubusercontent.com/99572994/156302632-efce1f4a-7afb-4c2e-9b0f-1c8dbde82e6c.png)
 
 
-## 并行程序
+# 并行程序
 ### 线程
 * 基本概念
 	* 定义
@@ -64,19 +64,19 @@ tag:
 * 基本操作
 
 	* 新建线程 
-		1. 继承Thread类（内部是实现了Runnable接口的 start（）方法仅仅是开启线程 不要用run（）除非重写）
-		2.实现Runnable接口（重写run（）方法）
-		3.实现Callable接口（有返回值 与FutureTask（后台）配合返回异步执行结果）
-		4.使用Executors创建线程池
+		* 继承Thread类（内部是实现了Runnable接口的 start（）方法仅仅是开启线程 不要用run（）除非重写）
+		* 实现Runnable接口（重写run（）方法）
+		* 实现Callable接口（有返回值 与FutureTask（后台）配合返回异步执行结果）
+		* 使用Executors创建线程池
 		
 	* 终止线程
-		1.stop（）是废弃方法 直接中止线程 过于暴力释放锁 锁是维持对象一致性的 导致结果出错
-		2.用 boolean stopme ＋break；封装为一个stopMe（）方法  调用即可实现终止
+		* stop（）是废弃方法 直接中止线程 过于暴力释放锁 锁是维持对象一致性的 导致结果出错
+		* 用 boolean stopme ＋break；封装为一个stopMe（）方法  调用即可实现终止
 		
 	* 中断线程**
-		1.interrupt（）
-		2.isinterrupt（）
-		3.interrupted（）判断是否被中断 并清除当前中断状态
+		* interrupt（）
+		* isinterrupt（）
+		* interrupted（）判断是否被中断 并清除当前中断状态
 		
 	* wait() 进入等待队列 notify() 随机唤醒  （这个两个方法必须都在synchronzied语句中 都需要获得目标对象的一个监视器）
 	* sleep（long millis） 会因为被中断抛出异常，此时他会清除中断标记 所以需要再次设置中断标记位 
@@ -143,7 +143,7 @@ Java 内存模型抽象了线程和主内存之间的关系，就比如说线程
 
 
 
-## JDK并发包
+# JDK并发包
 * 同步控制
 	* 重入锁 java.util.concurrent.locks.Re－entrant－Lock类来实现
 		* 中断响应lock.lockInterruptibly() 可以对响应中断的 锁申请动作
@@ -724,7 +724,7 @@ public void execute(Runnable command) {
 
 
 
-锁的优化
+# 锁的优化
 * 性能提升
 	* 减少锁持有时间
 		* Synchronized代码块
